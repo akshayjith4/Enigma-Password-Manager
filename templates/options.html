@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Enigma Options</title>
+</head>
+<body>
+    <div class="container">
+        <div class="options-card">
+            <h2><i class="lock-icon"></i>Enigma</h2>
+            <p>Welcome! Manage your passwords securely.</p> <!-- Common welcome message -->
+            <a href="/save" class="btn">Save New Password</a> <!-- Link to save a new password -->
+            <a href="/view" class="btn secondary">View Saved Passwords</a> <!-- Link to view saved passwords -->
+        </div>
+    </div>
+</body>
+</html>

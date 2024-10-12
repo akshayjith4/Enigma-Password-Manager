@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Enigma Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <h2><i class="lock-icon"></i>Enigma</h2>
+            {% if error %}
+            <div class="error-message">{{ error }}</div>  <!-- Modified to display error message -->
+            {% endif %}
+            <form action="/login" method="POST">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Username" name="username" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Password" name="password" required>
+                
+                <button type="submit" class="btn" aria-label="Login">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

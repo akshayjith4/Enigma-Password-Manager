@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Save New Password</title>
+    <script>
+        function savePassword(event) {
+            event.preventDefault();
+    
+            const appName = document.querySelector('input[name="app-name"]').value;
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            const notes = document.querySelector('textarea[name="notes"]').value;
+    
+            // Show loader and saving message
+            const loader = document.querySelector('.loader');
+            const savingMessage = document.querySelector('.saving-message');
+            loader.style.display = 'block';
+            savingMessage.style.display = 'block';
+    
+            const data = {
+                app_name: appName,
+                username: username,
+                password: password,
+                notes: notes
+            };
+    
+            fetch('/save-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.message) {
+                    alert(result.message);
+                    setTimeout(() => {
+                        window.location.href = "/options";  // Redirect to the options page
+                    }, 2000);
+                } else if (result.error) {
+                    alert('Error: ' + result.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Hide loader and saving message after 1 second
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    savingMessage.style.display = 'none';
+                }, 1000); // 1 second = 1000 milliseconds
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="save-card">
+            <h2>Save New Password</h2>
+            <form onsubmit="savePassword(event)">
+                <input type="text" placeholder="App Name" name="app-name" required>
+                <input type="text" placeholder="Username" name="username" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <textarea placeholder="Additional notes" name="notes"></textarea>
+                <button type="submit" class="btn">Save</button>
+            </form>
+            <div class="loader" aria-hidden="true"></div>
+            <div class="saving-message" aria-live="polite" style="display:none;">Saving password, please wait...</div>
+        </div>
+    </div>
+</body>
+</html>
