@@ -34,7 +34,6 @@ Before diving in, make sure you have the following:
 2. **Set Up a Virtual Environment (because who doesn’t love a cozy space?)**:
     ```bash
     python -m venv venv
-    # Activate it
     venv\Scripts\activate  # On Windows
     source venv/bin/activate  # On Linux/Mac
     ```
