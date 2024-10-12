@@ -27,7 +27,7 @@ Before diving in, make sure you have the following:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-username/enigma-password-manager.git
+    git clone https://github.com/akshayjith4/enigma-password-manager.git
     cd enigma-password-manager
     ```
 
@@ -150,6 +150,6 @@ This project is licensed under the [MIT License](LICENSE). Feel free to use, mod
 Found a bug? Got a feature idea? Or just want to say "Hi!"? Feel free to open an issue or drop us a message. Your feedback is the magic potion that helps us grow! 🌱
 
 For any updates or changes to the code, please contact me at:
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
+- **Email**: [akshayjithadoor@gmail.com](mailto:akshayjithadoor@gmail.com)
 
 Now go forth and secure your digital life with Enigma! 🚀🔐
