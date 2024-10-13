@@ -6,14 +6,14 @@ app = Flask(__name__)
 
 # Set a secret key for session management
 app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key_here')  # Use an environment variable
-db_password = os.environ.get('DB_PASSWORD', 'your_database_password_here')  # Change this to your actual database password
+db_password = os.environ.get('DB_PASSWORD', 'root@akshay_2004')  # Change this to your actual database password
 
 # Connect to the database
 db = mysql.connector.connect(
     host="localhost",
-    user="username",
+    user="root",
     passwd=db_password,
-    database="database_name",
+    database="password_manager",
 )
 cursor = db.cursor()
 
