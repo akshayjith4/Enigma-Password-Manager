@@ -3,26 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Enigma Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #ccc;
+        }
+
+        .login-container {
+            background-color: #1c1c1e;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            width: 370px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #00aaff;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .input-field {
+            width: 85%;  /* Match width with the button */
+            padding: 10px 10px 10px 35px;  /* Increased padding-left for icon space */
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .input-field::placeholder {
+            color: #666;
+        }
+
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            width: 80%;  /* Ensure full width */
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="login-card">
-            <h2><i class="lock-icon"></i>Enigma</h2>
-            {% if error %}
-            <div class="error-message">{{ error }}</div>  <!-- Modified to display error message -->
-            {% endif %}
-            <form action="/login" method="POST">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Username" name="username" required>
-                
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Password" name="password" required>
-                
-                <button type="submit" class="btn" aria-label="Login">Login</button>
-            </form>
-        </div>
+    <div class="login-container">
+        <h2>Enigma</h2>
+        {% if error %}
+            <div class="error-message">{{ error }}</div>  <!-- Display error message if exists -->
+        {% endif %}
+        <form action="/login" method="POST">
+            <div class="input-container">
+                <span class="input-icon">👤</span>
+                <input type="text" class="input-field" id="username" placeholder="Username" name="username" required>
+            </div>
+            <div class="input-container">
+                <span class="input-icon">🔒</span>
+                <input type="password" class="input-field" id="password" placeholder="Password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn" aria-label="Login">Login</button>
+        </form>
     </div>
 </body>
 </html>
