@@ -3,8 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Save New Password</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #1c1c1e;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            width: 450px;
+        }
+
+        h2 {
+            color: #00aaff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-container input,
+        .input-container textarea,
+        .save-btn {
+            width: 100%; /* Make width consistent */
+            padding: 12px;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: #ccc;
+            box-sizing: border-box; /* Ensures padding and border don't affect the width */
+        }
+
+        .input-container textarea {
+            resize: none;
+        }
+
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .saving-message {
+            color: #00aaff;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .save-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .save-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            color: #666;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
     <script>
         function savePassword(event) {
             event.preventDefault();
@@ -60,18 +160,25 @@
 </head>
 <body>
     <div class="container">
-        <div class="save-card">
-            <h2>Save New Password</h2>
-            <form onsubmit="savePassword(event)">
+        <h2>Save New Password</h2>
+        <form onsubmit="savePassword(event)">
+            <div class="input-container">
                 <input type="text" placeholder="App Name" name="app-name" required>
+            </div>
+            <div class="input-container">
                 <input type="text" placeholder="Username" name="username" required>
+            </div>
+            <div class="input-container">
                 <input type="password" placeholder="Password" name="password" required>
-                <textarea placeholder="Additional notes" name="notes"></textarea>
-                <button type="submit" class="btn">Save</button>
-            </form>
-            <div class="loader" aria-hidden="true"></div>
-            <div class="saving-message" aria-live="polite" style="display:none;">Saving password, please wait...</div>
-        </div>
+            </div>
+            <div class="input-container">
+                <textarea placeholder="Additional notes" name="notes" rows="3"></textarea>
+            </div>
+            <button type="submit" class="save-btn">Save</button>
+        </form>
+        <div class="loader" aria-hidden="true"></div>
+        <div class="saving-message" aria-live="polite">Saving password, please wait...</div>
+        <div class="footer">Your security is our priority.</div>
     </div>
 </body>
 </html>
