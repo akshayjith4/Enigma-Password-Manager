@@ -4,30 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Passwords</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: linear-gradient(135deg, #2c3e50, #34495e, #00aaff);
+            background-size: 400% 400%;
+            animation: gradientAnimation 25s ease infinite; /* Animated gradient */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             color: #ccc;
+            overflow: hidden;
+            position: relative;
         }
 
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 0%; }
+            75% { background-position: 0% 0%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: particleAnimation infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes particleAnimation {
+            0% { transform: translateY(0) scale(0.5); }
+            50% { transform: translateY(-50px) scale(1); }
+            100% { transform: translateY(0) scale(0.5); }
+        }
+
+        .particle1 { width: 10px; height: 10px; animation-duration: 3s; }
+        .particle2 { width: 12px; height: 12px; animation-duration: 4s; }
+        .particle3 { width: 8px; height: 8px; animation-duration: 5s; }
+        .particle4 { width: 14px; height: 14px; animation-duration: 6s; }
+        .particle5 { width: 9px; height: 9px; animation-duration: 7s; }
+
         .container {
-            background-color: #1c1c1e;
+            background-color: rgba(28, 28, 30, 0.9);
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             width: 400px;
             text-align: center;
+            animation: fadeIn 1s forwards; /* Add fade-in animation */
+            opacity: 0;
+            animation-delay: 0.5s; /* Delay for fade-in effect */
+            position: relative;
+            z-index: 1; /* Ensure container is above particles */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         h2 {
             color: #00aaff;
             margin-bottom: 20px;
+            animation: bounce 1.5s infinite; /* Add bounce effect */
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         .password-item {
@@ -36,6 +85,7 @@
             padding: 20px;
             margin-bottom: 20px;
             position: relative;
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
         }
 
         .password-item:hover {
@@ -123,13 +173,14 @@
         }
 
         .modal-content {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: rgba(28, 28, 30, 0.9);
             margin: 5% auto; 
             padding: 20px;
             border-radius: 10px;
             width: 300px; 
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 1s forwards; /* Add fade-in animation */
         }
 
         .close {
@@ -189,6 +240,12 @@
     </style>
 </head>
 <body>
+    <div class="particle particle1" style="top: 30%; left: 20%; animation-duration: 3s;"></div>
+    <div class="particle particle2" style="top: 60%; left: 50%; animation-duration: 4s;"></div>
+    <div class="particle particle3" style="top: 15%; right: 10%; animation-duration: 5s;"></div>
+    <div class="particle particle4" style="bottom: 10%; left: 40%; animation-duration: 6s;"></div>
+    <div class="particle particle5" style="bottom: 25%; right: 15%; animation-duration: 7s;"></div>
+
     <div class="container">
         <h2>Your Passwords</h2>
         
@@ -240,21 +297,17 @@
         }
 
         // Check password and toggle details visibility
-        // Check password and toggle details visibility
-// Check password and toggle details visibility
-function checkPassword() {
-    const passwordInput = document.getElementById('adminPassword').value;
-    const details = currentElement.nextElementSibling;
+        function checkPassword() {
+            const passwordInput = document.getElementById('adminPassword').value;
+            const details = currentElement.nextElementSibling;
 
-    if (passwordInput === 'admin@enigma') { // Check if the entered password is correct
-        // Show details if they are currently hidden, otherwise hide them
-        details.style.display = details.style.display === 'block' ? 'none' : 'block';
-        closeModal(); // Close the modal after a successful check
-    } else {
-        alert('Incorrect password. Please try again.');
-    }
-}
-
+            if (passwordInput === 'admin@enigma') { // Check if the entered password is correct
+                details.style.display = details.style.display === 'block' ? 'none' : 'block';
+                closeModal(); // Close the modal after a successful check
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        }
 
         // Delete password function
         function deletePassword(id) {
