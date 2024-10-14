@@ -4,31 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enigma Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: linear-gradient(135deg, #2c3e50, #34495e, #00aaff);
+            background-size: 400% 400%;
+            animation: gradientAnimation 25s ease infinite; /* Longer animation duration for smoother transition */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             color: #ccc;
+            overflow: hidden;
+            position: relative;
         }
 
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 0%; }
+            75% { background-position: 0% 0%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2); 
+            animation: particleAnimation infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes particleAnimation {
+            0% { transform: translateY(0) scale(0.5); }
+            50% { transform: translateY(-50px) scale(1); }
+            100% { transform: translateY(0) scale(0.5); }
+        }
+
+        .particle1 { width: 10px; height: 10px; animation-duration: 3s; }
+        .particle2 { width: 12px; height: 12px; animation-duration: 4s; }
+        .particle3 { width: 8px; height: 8px; animation-duration: 5s; }
+        .particle4 { width: 14px; height: 14px; animation-duration: 6s; }
+        .particle5 { width: 9px; height: 9px; animation-duration: 7s; }
+
         .login-container {
-            background-color: #1c1c1e;
+            background-color: rgba(28, 28, 30, 0.9);
             padding: 50px;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             width: 370px;
             text-align: center;
+            position: relative;
+            z-index: 1;
+            opacity: 0; 
+            animation: fadeIn 1s forwards; 
+            animation-delay: 0.5s; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         h2 {
             color: #00aaff;
             margin-bottom: 20px;
-            font-size: 1.8em;
+            font-size: 2em;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
         }
 
         .input-container {
@@ -45,34 +102,52 @@
         }
 
         .input-field {
-            width: 85%;  /* Match width with the button */
-            padding: 10px 10px 10px 35px;  /* Increased padding-left for icon space */
+            width: 85%;
+            padding: 10px 10px 10px 35px;
             margin: 10px 0;
             border: none;
             border-radius: 5px;
             background-color: #333;
             color: #ccc;
             font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         .input-field::placeholder {
             color: #666;
         }
 
+        .input-field:focus {
+            background-color: #444; 
+            outline: none;
+            animation: pulse 0.5s; 
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
         .login-btn {
             background-color: #007bff;
             color: white;
             border: none;
-            width: 80%;  /* Ensure full width */
+            width: 80%;
             padding: 12px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .login-btn:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.5); 
+            animation: shake 0.5s; 
         }
 
         .error-message {
@@ -82,14 +157,26 @@
             margin-bottom: 20px;
             border-radius: 5px;
             text-align: center;
+            animation: bounceIn 0.5s; 
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
+    <div class="particle particle1" style="top: 30%; left: 20%; animation-duration: 3s;"></div>
+    <div class="particle particle2" style="top: 60%; left: 50%; animation-duration: 4s;"></div>
+    <div class="particle particle3" style="top: 15%; right: 10%; animation-duration: 5s;"></div>
+    <div class="particle particle4" style="bottom: 10%; left: 40%; animation-duration: 6s;"></div>
+    <div class="particle particle5" style="bottom: 25%; right: 15%; animation-duration: 7s;"></div>
+
     <div class="login-container">
-        <h2>Enigma</h2>
+        <h2 class="animate__animated animate__bounce">Enigma</h2> 
         {% if error %}
-            <div class="error-message">{{ error }}</div>  <!-- Display error message if exists -->
+            <div class="error-message">{{ error }}</div>
         {% endif %}
         <form action="/login" method="POST">
             <div class="input-container">
@@ -103,5 +190,22 @@
             <button type="submit" class="login-btn" aria-label="Login">Login</button>
         </form>
     </div>
+
+    <script>
+        const particles = document.querySelectorAll('.particle');
+        
+        function moveParticles(event) {
+            const x = event.clientX;
+            const y = event.clientY;
+
+            particles.forEach(particle => {
+                const offsetX = Math.random() * 100 - 50; 
+                const offsetY = Math.random() * 100 - 50; 
+                particle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            });
+        }
+
+        document.addEventListener('mousemove', moveParticles);
+    </script>
 </body>
 </html>
