@@ -4,29 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save New Password</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: linear-gradient(135deg, #2c3e50, #34495e, #00aaff);
+            background-size: 400% 400%;
+            animation: gradientAnimation 25s ease infinite; /* Animated gradient */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #ccc;
+            overflow: hidden;
+            position: relative;
         }
 
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 0%; }
+            75% { background-position: 0% 0%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: particleAnimation infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes particleAnimation {
+            0% { transform: translateY(0) scale(0.5); }
+            50% { transform: translateY(-50px) scale(1); }
+            100% { transform: translateY(0) scale(0.5); }
+        }
+
+        .particle1 { width: 10px; height: 10px; animation-duration: 3s; }
+        .particle2 { width: 12px; height: 12px; animation-duration: 4s; }
+        .particle3 { width: 8px; height: 8px; animation-duration: 5s; }
+        .particle4 { width: 14px; height: 14px; animation-duration: 6s; }
+        .particle5 { width: 9px; height: 9px; animation-duration: 7s; }
+
         .container {
-            background-color: #1c1c1e;
+            background-color: rgba(28, 28, 30, 0.9);
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
             width: 450px;
+            position: relative;
+            z-index: 1; /* Ensure container is above particles */
+            opacity: 0; 
+            animation: fadeIn 1s forwards; 
+            animation-delay: 0.5s; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         h2 {
             color: #00aaff;
             text-align: center;
             margin-bottom: 20px;
+            animation: bounce 1.5s infinite; /* Add bounce effect */
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         form {
@@ -48,6 +98,7 @@
             background-color: #333;
             color: #ccc;
             box-sizing: border-box; /* Ensures padding and border don't affect the width */
+            transition: background-color 0.3s ease; /* Add transition for input fields */
         }
 
         .input-container textarea {
@@ -85,11 +136,12 @@
             border-radius: 5px;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s; /* Add transform for scaling */
         }
 
         .save-btn:hover {
             background-color: #0056b3;
+            transform: scale(1.05); /* Slightly enlarge on hover */
         }
 
         .footer {
@@ -156,9 +208,31 @@
                 }, 1000); // 1 second = 1000 milliseconds
             });
         }
+
+        // Interactive particle effect
+        const particles = document.querySelectorAll('.particle');
+        
+        function moveParticles(event) {
+            const x = event.clientX;
+            const y = event.clientY;
+
+            particles.forEach(particle => {
+                const offsetX = Math.random() * 100 - 50; // Random offset for particles
+                const offsetY = Math.random() * 100 - 50; // Random offset for particles
+                particle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            });
+        }
+
+        document.addEventListener('mousemove', moveParticles);
     </script>
 </head>
 <body>
+    <div class="particle particle1" style="top: 30%; left: 20%; animation-duration: 3s;"></div>
+    <div class="particle particle2" style="top: 60%; left: 50%; animation-duration: 4s;"></div>
+    <div class="particle particle3" style="top: 15%; right: 10%; animation-duration: 5s;"></div>
+    <div class="particle particle4" style="bottom: 10%; left: 40%; animation-duration: 6s;"></div>
+    <div class="particle particle5" style="bottom: 25%; right: 15%; animation-duration: 7s;"></div>
+
     <div class="container">
         <h2>Save New Password</h2>
         <form onsubmit="savePassword(event)">
@@ -172,13 +246,13 @@
                 <input type="password" placeholder="Password" name="password" required>
             </div>
             <div class="input-container">
-                <textarea placeholder="Additional notes" name="notes" rows="3"></textarea>
+                <textarea placeholder="Notes" name="notes" rows="4"></textarea>
             </div>
-            <button type="submit" class="save-btn">Save</button>
+            <button type="submit" class="save-btn">Save Password</button>
         </form>
-        <div class="loader" aria-hidden="true"></div>
-        <div class="saving-message" aria-live="polite">Saving password, please wait...</div>
-        <div class="footer">Your security is our priority.</div>
+        <div class="loader"></div>
+        <div class="saving-message">Saving your password...</div>
+        <div class="footer">© 2024 Your App Name</div>
     </div>
 </body>
 </html>
