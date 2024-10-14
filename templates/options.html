@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Passwords</title>
+    <title>Enigma Options</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         body {
@@ -11,7 +11,7 @@
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #2c3e50, #34495e, #00aaff);
             background-size: 400% 400%;
-            animation: gradientAnimation 25s ease infinite; /* Animated gradient */
+            animation: gradientAnimation 15s ease infinite;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,18 +49,18 @@
         .particle4 { width: 14px; height: 14px; animation-duration: 6s; }
         .particle5 { width: 9px; height: 9px; animation-duration: 7s; }
 
-        .container {
+        .options-container {
             background-color: rgba(28, 28, 30, 0.9);
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             width: 400px;
             text-align: center;
-            animation: fadeIn 1s forwards; /* Add fade-in animation */
-            opacity: 0;
-            animation-delay: 0.5s; /* Delay for fade-in effect */
             position: relative;
-            z-index: 1; /* Ensure container is above particles */
+            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.5s;
         }
 
         @keyframes fadeIn {
@@ -71,170 +71,59 @@
         h2 {
             color: #00aaff;
             margin-bottom: 20px;
-            animation: bounce 1.5s infinite; /* Add bounce effect */
+            font-size: 2em;
+            animation: pulseJump 2s infinite;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        @keyframes pulseJump {
+            0%, 100% { transform: scale(1) translateY(0); color: #00aaff; }
+            25%, 75% { transform: scale(1.1) translateY(-5px); color: #ffffff; }
         }
 
-        .password-item {
-            background-color: #2e2e2e;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            transition: background-color 0.3s; /* Smooth transition for hover effect */
+        p {
+            color: #ddd;
+            margin-bottom: 30px;
+            font-size: 1.1em;
         }
 
-        .password-item:hover {
-            background-color: #3e3e3e;
-        }
-
-        .password-item .app-name {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #00aaff;
-            cursor: pointer;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .password-item .app-name:hover {
-            color: #0088cc;
-        }
-
-        .password-details {
-            margin-top: 15px;
-            text-align: left;
-            font-size: 0.9em;
-            display: none; /* Keep details hidden initially */
-        }
-
-        .password-details b {
-            color: #00ff00;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .button-group button {
-            width: 45%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .button-update {
+        .options-btn {
             background-color: #007bff;
             color: white;
+            border: none;
+            width: 80%; /* Adjust width to match login button */
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none; /* Remove underline */
         }
 
-        .button-update:hover {
+        .options-btn:hover {
             background-color: #0056b3;
-            transform: translateY(-2px);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+            animation: shake 0.5s; 
         }
 
-        .button-delete {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        .button-delete:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25%, 75% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
         }
 
         .footer {
-            margin-top: 10px;
-            font-size: 0.8em;
             color: #666;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0, 0, 0, 0.6); 
-            padding-top: 60px; 
-        }
-
-        .modal-content {
-            background: rgba(28, 28, 30, 0.9);
-            margin: 5% auto; 
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px; 
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            animation: fadeIn 1s forwards; /* Add fade-in animation */
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: white;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        input[type="password"] {
-            width: 90%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-top: 10px;
-            background-color: #2e2e2e;
-            color: white;
-        }
-
-        input[type="password"]::placeholder {
-            color: #888;
-        }
-
-        button {
-            background-color: #00aaff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            margin-top: 15px;
-        }
-
-        button:hover {
-            background-color: #0088cc;
-            transform: translateY(-2px);
+            font-size: 12px;
+            margin-top: 20px;
         }
 
         @media (max-width: 600px) {
-            .container {
+            .options-container {
                 width: 90%;
-                padding: 30px;
-            }
-
-            .modal-content {
-                width: 80%; /* Make modal content responsive */
             }
         }
     </style>
@@ -246,119 +135,30 @@
     <div class="particle particle4" style="bottom: 10%; left: 40%; animation-duration: 6s;"></div>
     <div class="particle particle5" style="bottom: 25%; right: 15%; animation-duration: 7s;"></div>
 
-    <div class="container">
-        <h2>Your Passwords</h2>
-        
-        <!-- Loop through passwords dynamically using Jinja -->
-        {% for password in passwords %}
-        <div class="password-item">
-            <span class="app-name" onclick="showModal(this)">{{ password.app_name }}</span>
-            <div class="password-details">
-                <p><b>Username:</b> {{ password.username }}</p>
-                <p><b>Password:</b> {{ password.password }}</p>
-                <div class="button-group">
-                    <button class="button-update" 
-                        onclick="showUpdateForm({{ password.id }}, 
-                        JSON.stringify('{{ password.app_name }}'), 
-                        JSON.stringify('{{ password.username }}'), 
-                        JSON.stringify('{{ password.password }}'))">Update</button>
-                    <button class="button-delete" onclick="deletePassword({{ password.id }})">Delete</button>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-        
+    <div class="options-container">
+        <h2 class="animate__animated animate__bounce">Enigma</h2>
+        <p>Welcome! Manage your passwords securely.</p>
+        <a href="/save" class="options-btn"><i class="fa fa-plus"></i> Save New Password</a>
+        <a href="/view" class="options-btn"><i class="fa fa-key"></i> View Saved Passwords</a>
         <div class="footer">Your security is our priority.</div>
     </div>
 
-    <!-- Modal for password input -->
-    <div id="passwordModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p>Please enter the admin password:</p>
-            <input type="password" id="adminPassword" placeholder="Password" />
-            <button onclick="checkPassword()">Submit</button>
-        </div>
-    </div>
-
     <script>
-        let currentElement;
+        // Interactive particle effect
+        const particles = document.querySelectorAll('.particle');
+        
+        function moveParticles(event) {
+            const x = event.clientX;
+            const y = event.clientY;
 
-        // Show modal for password input
-        function showModal(element) {
-            currentElement = element; // Store the current element
-            document.getElementById('passwordModal').style.display = 'block';
+            particles.forEach(particle => {
+                const offsetX = Math.random() * 100 - 50; // Random offset for particles
+                const offsetY = Math.random() * 100 - 50; // Random offset for particles
+                particle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            });
         }
 
-        // Close the modal
-        function closeModal() {
-            document.getElementById('passwordModal').style.display = 'none';
-            document.getElementById('adminPassword').value = ''; // Clear input
-        }
-
-        // Check password and toggle details visibility
-        function checkPassword() {
-            const passwordInput = document.getElementById('adminPassword').value;
-            const details = currentElement.nextElementSibling;
-
-            if (passwordInput === 'admin@enigma') { // Check if the entered password is correct
-                details.style.display = details.style.display === 'block' ? 'none' : 'block';
-                closeModal(); // Close the modal after a successful check
-            } else {
-                alert('Incorrect password. Please try again.');
-            }
-        }
-
-        // Delete password function
-        function deletePassword(id) {
-            if (confirm('Are you sure you want to delete this password?')) {
-                fetch(`/delete-password/${id}`, { method: 'DELETE' })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message) {
-                            alert(data.message);
-                            location.reload();
-                        } else {
-                            alert(data.error);
-                        }
-                    })
-                    .catch(error => alert('Error: ' + error.message));
-            }
-        }
-
-        // Show update form
-        function showUpdateForm(id, appName, username, password) {
-            const newAppName = prompt("Enter new app name:", appName);
-            const newUsername = prompt("Enter new username:", username);
-            const newPassword = prompt("Enter new password:", password);
-
-            if (newAppName && newUsername && newPassword) {
-                const data = { app_name: newAppName, username: newUsername, password: newPassword };
-                fetch(`/update-password/${id}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message);
-                        location.reload();
-                    } else {
-                        alert(data.error);
-                    }
-                })
-                .catch(error => alert('Error: ' + error.message));
-            }
-        }
-
-        // Close the modal when the user clicks anywhere outside of the modal
-        window.onclick = function(event) {
-            const modal = document.getElementById('passwordModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
+        document.addEventListener('mousemove', moveParticles);
     </script>
 </body>
 </html>
