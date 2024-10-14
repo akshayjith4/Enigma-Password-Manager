@@ -41,7 +41,7 @@ def handle_login():
     password = request.form['password']
     
     if username == 'admin' and password == 'admin@enigma':  # Replace with DB validation in the future
-        return redirect(url_for('options'))  
+        return redirect(url_for('options'))
     else:
         return render_template('login.html', error="Invalid credentials, please try again.")
 
